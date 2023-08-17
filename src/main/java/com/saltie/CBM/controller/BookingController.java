@@ -24,6 +24,10 @@ public class BookingController {
     public String welcome(){
         return "its working";
     }
+
+    public String sayHi(){
+        return "Hi";
+    }
     @GetMapping("/viewById/{id}")
     public Booking viewBooking(@PathVariable("id") Long id){
         return bookingService.viewBooking(id);
