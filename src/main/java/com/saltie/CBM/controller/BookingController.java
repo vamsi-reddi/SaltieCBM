@@ -28,6 +28,10 @@ public class BookingController {
     public String sayHi(){
         return "Hi";
     }
+
+    public String Test2(){
+        return "test2";
+    }
     @GetMapping("/viewById/{id}")
     public Booking viewBooking(@PathVariable("id") Long id){
         return bookingService.viewBooking(id);
