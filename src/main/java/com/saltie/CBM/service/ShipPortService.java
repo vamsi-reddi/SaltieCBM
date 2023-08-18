@@ -2,6 +2,7 @@ package com.saltie.CBM.service;
 
 import com.saltie.CBM.model.ShipPort;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ShipPortService {
@@ -15,4 +16,9 @@ public interface ShipPortService {
     ShipPort updateShipPort(ShipPort shipPort);
 
     String removeShipPort(Long id);
+
+    List<ShipPort> getByDate(Date date);
+
+    Date getByName(Long shipPortCode        );
+
 }
