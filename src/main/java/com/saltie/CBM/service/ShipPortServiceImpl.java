@@ -5,6 +5,9 @@ import com.saltie.CBM.repository.ShipPortRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -46,5 +49,21 @@ public class ShipPortServiceImpl implements  ShipPortService{
             return "removed successfully";
         }
         return "shipPort not exist in db";
+    }
+
+    @Override
+    public List<ShipPort> getByDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        Date fromdate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_MONTH, 3);
+        Date toDate = calendar.getTime();
+        return shipPortRepository.findShipPortByDate(fromdate, toDate);
+    }
+
+    @Override
+    public Date getByName(Long shipPortCode) {
+       return shipPortRepository.findByShipPortCode(shipPortCode).getShipDate();
     }
 }

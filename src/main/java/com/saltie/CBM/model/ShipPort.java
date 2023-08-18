@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,6 +19,7 @@ public class ShipPort {
 
     private String location;
 
-    private String Name;
+    private String name;
 
+    private Date shipDate;
 }
