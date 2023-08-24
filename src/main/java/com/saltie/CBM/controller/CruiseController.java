@@ -1,8 +1,11 @@
 package com.saltie.CBM.controller;
 
+import com.saltie.CBM.exceptions.RecordNotFoundException;
 import com.saltie.CBM.model.Cruise;
 import com.saltie.CBM.service.CruiseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +19,7 @@ public class CruiseController {
     public Cruise viewCruise(@PathVariable("id") Long id) {
         return cruiseService.viewCruise(id);
     }
+
     @GetMapping("/view")
     public List<Cruise> viewCruises() {
         return cruiseService.viewCruises();

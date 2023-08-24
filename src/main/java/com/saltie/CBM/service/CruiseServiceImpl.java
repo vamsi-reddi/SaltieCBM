@@ -1,5 +1,7 @@
 package com.saltie.CBM.service;
 
+import com.saltie.CBM.exceptions.RecordAlreadyExistsException;
+import com.saltie.CBM.exceptions.RecordNotFoundException;
 import com.saltie.CBM.model.Cruise;
 import com.saltie.CBM.repository.CruiseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,11 @@ public class CruiseServiceImpl implements CruiseService{
     CruiseRepository cruiseRepository;
     @Override
     public Cruise viewCruise(Long cruiseId) {
-        return cruiseRepository.findById(cruiseId).get();
+        if(cruiseRepository.findById(cruiseId).isPresent()){
+            return cruiseRepository.findById(cruiseId).get();
+        }
+
+        throw new RecordNotFoundException("no record found with this Id " + cruiseId);
     }
 
     @Override
@@ -24,7 +30,10 @@ public class CruiseServiceImpl implements CruiseService{
 
     @Override
     public Cruise addCruise(Cruise cruise) {
-        return cruiseRepository.save(cruise);
+        if(cruiseRepository.findById(cruise.getCruiseId()).isEmpty()){
+            return cruiseRepository.save(cruise);
+        }
+        throw new RecordAlreadyExistsException("record already exists with this Id " + cruise.getCruiseId());
     }
 
     @Override
@@ -36,7 +45,8 @@ public class CruiseServiceImpl implements CruiseService{
             temp.setCruiseName(cruise.getCruiseName());
             return cruiseRepository.save(temp);
         }
-        return null;
+
+        throw new RecordNotFoundException("no record found with this Id " + cruise.getCruiseId());
     }
 
     @Override
